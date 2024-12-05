@@ -39,12 +39,12 @@ The implementation uses Windows' CMSTP.exe binary to bypass UAC restrictions thr
 
 Default usage (spawns elevated cmd.exe):
 ```bash
-.\cmstp_bypass.exe
+.\RustyKeys.exe
 ```
 
 Execute specific command with elevation:
 ```bash
-.\cmstp_bypass.exe "path_to_executable"
+.\RustyKeys.exe "path_to_executable"
 ```
 
 ## Building on Windows
