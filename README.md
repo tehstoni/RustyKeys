@@ -84,19 +84,6 @@ cargo build --release --target i686-pc-windows-msvc    # For 32-bit
 - Handles UAC prompt automation
 - Implements keyboard simulation when needed
 
-## Dependencies
-
-The project relies on the following Rust crates:
-- `winapi`: For Windows API interaction
-- `uuid`: For generating unique file names
-
-Add these to your `Cargo.toml`:
-```toml
-[dependencies]
-winapi = { version = "0.3", features = ["winuser"] }
-uuid = { version = "1.0", features = ["v4"] }
-```
-
 ## Credits
 
 This implementation is based on research and work by several security researchers:
