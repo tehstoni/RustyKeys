@@ -37,6 +37,8 @@ The implementation uses Windows' CMSTP.exe binary to bypass UAC restrictions thr
 
 ## Usage
 
+Download from the release or build on your own.
+
 Default usage (spawns elevated cmd.exe):
 ```bash
 .\RustyKeys.exe
