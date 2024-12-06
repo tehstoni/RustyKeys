@@ -49,12 +49,6 @@ Execute specific command with elevation:
 
 ## Building on Windows
 
-This project is designed to run on Windows systems. Here's how to set up your build environment and compile the project:
-
-### Building the Project
-
-Open a command prompt or PowerShell window and run:
-
 ```cmd
 cargo build --release
 ```
